@@ -4,68 +4,52 @@
     <title>Word Definition Game</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
+    font-family: Arial, sans-serif;
+    text-align: center;
+    font-size: 1.2em; /* Ensures readability */
+}
 
-        .choice-btn {
-            display: block;
-            width: 80%;
-            padding: 15px;
-            margin: 10px auto;
-            font-size: 1.2em;
-            border: 2px solid #000;
-            cursor: pointer;
-            background-color: white;
-            transition: background-color 0.2s;
-        }
+.choice-btn {
+    display: block;
+    width: 80%;
+    padding: 15px;
+    margin: 10px auto;
+    font-size: 1.5em; /* Larger text for better visibility */
+    border: 2px solid #000;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.2s;
+}
 
-        .correct {
-            background-color: lightgreen !important;
-        }
+#nextBtn, #fullscreenBtn {
+    font-size: 1.5em;
+    padding: 15px;
+    width: 80%;
+    margin: 10px auto;
+}
 
-        .incorrect {
-            background-color: lightcoral !important;
-        }
+/* Responsive fixes */
+@media (max-width: 600px) {
+    body {
+        font-size: 1.4em; /* Adjust font size for mobile */
+    }
 
-        #nextBtn {
-            display: none;
-            padding: 15px;
-            margin-top: 15px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            font-size: 1.2em;
-        }
+    .choice-btn {
+        width: 90%;
+        font-size: 1.6em;
+        padding: 20px;
+    }
 
-        #modeSwitchContainer {
-            margin-bottom: 15px;
-        }
+    #nextBtn, #fullscreenBtn {
+        font-size: 1.6em;
+        padding: 20px;
+    }
 
-        #fullscreenBtn {
-            padding: 15px;
-            margin-top: 10px;
-            cursor: pointer;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            font-size: 1.2em;
-        }
+    #word {
+        font-size: 2em; /* Ensure word is clearly visible */
+    }
+}
 
-        /* Responsive design for mobile */
-        @media (max-width: 600px) {
-            .choice-btn {
-                width: 90%;
-                font-size: 1.5em;
-                padding: 20px;
-            }
-
-            #nextBtn, #fullscreenBtn {
-                font-size: 1.5em;
-                padding: 20px;
-            }
-        }
     </style>
     <script>
         const words = {
@@ -1248,17 +1232,26 @@
             window.speechSynthesis.speak(speech);
         }
 
-        function goFullscreen() {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) {
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) {
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) {
-                document.documentElement.msRequestFullscreen();
-            }
-        }
+function goFullscreen() {
+    let fullscreenBtn = document.getElementById("fullscreenBtn");
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+        document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen();
+    }
+
+    // Hide the fullscreen button when fullscreen is activated
+    fullscreenBtn.style.display = "none";
+
+    // Make text elements larger in fullscreen mode
+    document.getElementById("word").style.fontSize = "2.5em";
+    document.getElementById("modeSwitchContainer").style.fontSize = "1.5em";
+}
+
 
         window.speechSynthesis.onvoiceschanged = () => {
             pronounceWord();
