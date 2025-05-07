@@ -5,96 +5,93 @@
     <style>
         /* General Styles */
         html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
 
-        /* Game Container */
-        #gameContainer {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Ensures full screen coverage */
-        }
+/* Game Container */
+#gameContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-        /* Word Display */
-        #word {
-            font-size: 4vw; /* Dynamically adjusts based on screen size */
-            font-weight: bold;
-        }
+/* Word Display */
+#word {
+    font-size: min(6vw, 2em); /* Adjust size dynamically */
+    font-weight: bold;
+}
 
-        /* Choice Buttons */
-        .choice-btn {
-            display: block;
-            width: 80%;
-            padding: 15px;
-            margin: 10px auto;
-            font-size: 3vw; /* Adjust size dynamically */
-            border: 2px solid #000;
-            cursor: pointer;
-            background-color: white;
-            transition: background-color 0.2s;
-        }
+/* Choice Buttons */
+.choice-btn {
+    display: block;
+    width: 80%;
+    padding: min(10px, 2vh);
+    margin: 10px auto;
+    font-size: min(5vw, 1.8em); /* Scales but keeps readable size */
+    border: 2px solid #000;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.2s;
+}
 
-        /* Styling for Correct and Incorrect Answers */
-        .correct {
-            background-color: lightgreen !important;
-            color: black !important;
-            border: 2px solid darkgreen;
-        }
+/* Correct and Incorrect Answer Styling */
+.correct {
+    background-color: lightgreen !important;
+    color: black !important;
+    border: 2px solid darkgreen;
+}
 
-        .incorrect {
-            background-color: lightcoral !important;
-            color: black !important;
-            border: 2px solid darkred;
-        }
+.incorrect {
+    background-color: lightcoral !important;
+    color: black !important;
+    border: 2px solid darkred;
+}
 
-        /* Next Button & Fullscreen Button */
-        #nextBtn, #fullscreenBtn {
-            font-size: 3vw; /* Scales based on screen size */
-            padding: 2vh;
-            width: 80%;
-            margin: 10px auto;
-            display: inline-block;
-            cursor: pointer;
-        }
+/* Next and Fullscreen Buttons */
+#nextBtn, #fullscreenBtn {
+    font-size: min(4vw, 1.5em);
+    padding: min(2vh, 15px);
+    width: 80%;
+    margin: 10px auto;
+    display: inline-block;
+    cursor: pointer;
+}
 
-        /* Mode Switch Container */
-        #modeSwitchContainer {
-            margin-bottom: 15px;
-            font-size: 1.5vw;
-        }
+/* Mode Switch */
+#modeSwitchContainer {
+    margin-bottom: 15px;
+    font-size: min(3vw, 1.2em);
+}
 
-        /* Responsive Design for Mobile */
-        @media (max-width: 600px) {
-            body {
-                font-size: 1.4em;
-            }
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    body {
+        font-size: 1.2em;
+    }
 
-            #gameContainer {
-                height: 100vh;
-            }
+    .choice-btn {
+        width: 90%;
+        font-size: min(6vw, 2em);
+        padding: min(2vh, 20px);
+    }
 
-            .choice-btn {
-                width: 90%;
-                font-size: 4vw;
-                padding: 20px;
-            }
+    #nextBtn, #fullscreenBtn {
+        font-size: min(6vw, 2em);
+        padding: min(2vh, 20px);
+    }
 
-            #nextBtn, #fullscreenBtn {
-                font-size: 4vw;
-                padding: 20px;
-            }
+    #word {
+        font-size: min(7vw, 2.5em); /* Ensure visibility */
+    }
+}
 
-            #word {
-                font-size: 5vw; /* Increase visibility for mobile */
-            }
-        }
     </style>
     <script>
         const words = {
