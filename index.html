@@ -3,24 +3,45 @@
 <head>
     <title>Word Definition Game</title>
     <style>
-        body {
+        /* General Styles */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             font-family: Arial, sans-serif;
             text-align: center;
-            font-size: 1.2em; /* Default size for readability */
         }
 
+        /* Game Container */
+        #gameContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ensures full screen coverage */
+        }
+
+        /* Word Display */
+        #word {
+            font-size: 4vw; /* Dynamically adjusts based on screen size */
+            font-weight: bold;
+        }
+
+        /* Choice Buttons */
         .choice-btn {
             display: block;
             width: 80%;
             padding: 15px;
             margin: 10px auto;
-            font-size: 1.5em;
+            font-size: 3vw; /* Adjust size dynamically */
             border: 2px solid #000;
             cursor: pointer;
             background-color: white;
             transition: background-color 0.2s;
         }
 
+        /* Styling for Correct and Incorrect Answers */
         .correct {
             background-color: lightgreen !important;
             color: black !important;
@@ -33,39 +54,51 @@
             border: 2px solid darkred;
         }
 
+        /* Next Button & Fullscreen Button */
         #nextBtn, #fullscreenBtn {
-            font-size: 1.5em;
-            padding: 15px;
+            font-size: 3vw; /* Scales based on screen size */
+            padding: 2vh;
             width: 80%;
             margin: 10px auto;
             display: inline-block;
+            cursor: pointer;
         }
 
-        /* Responsive Design */
+        /* Mode Switch Container */
+        #modeSwitchContainer {
+            margin-bottom: 15px;
+            font-size: 1.5vw;
+        }
+
+        /* Responsive Design for Mobile */
         @media (max-width: 600px) {
             body {
                 font-size: 1.4em;
             }
 
+            #gameContainer {
+                height: 100vh;
+            }
+
             .choice-btn {
                 width: 90%;
-                font-size: 1.6em;
+                font-size: 4vw;
                 padding: 20px;
             }
 
             #nextBtn, #fullscreenBtn {
-                font-size: 1.6em;
+                font-size: 4vw;
                 padding: 20px;
             }
 
             #word {
-                font-size: 2.5em;
+                font-size: 5vw; /* Increase visibility for mobile */
             }
         }
     </style>
     <script>
         const words = {
-            "Accusatory": {definition:"Suggesting someone has done something wrong",difficulty:"hard"},
+"Accusatory": {definition:"Suggesting someone has done something wrong",difficulty:"hard"},
 "Allusion": {definition:"An indirect reference to something",difficulty:"hard"},
 "Adjourn": {definition:"To stop a meeting or session temporarily",difficulty:"hard"},
 "Apathetic": {definition:"Showing or feeling no interest or emotion",difficulty:"hard"},
@@ -1245,30 +1278,20 @@
         }
 
         function goFullscreen() {
-            let fullscreenBtn = document.getElementById("fullscreenBtn");
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) {
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) {
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) {
-                document.documentElement.msRequestFullscreen();
-            }
+            document.documentElement.requestFullscreen?.();
+
+            // Adjust sizes in fullscreen mode
+            document.getElementById("word").style.fontSize = "5vw";
+            document.querySelectorAll(".choice-btn").forEach(btn => btn.style.fontSize = "4vw");
 
             // Hide fullscreen button when activated
-            fullscreenBtn.style.display = "none";
-
-            // Adjust font sizes in fullscreen
-            document.getElementById("word").style.fontSize = "2.5em";
-            document.getElementById("modeSwitchContainer").style.fontSize = "1.5em";
+            document.getElementById("fullscreenBtn").style.display = "none";
         }
 
         // Ensure fullscreen button reappears when exiting fullscreen
         document.addEventListener("fullscreenchange", () => {
-            let fullscreenBtn = document.getElementById("fullscreenBtn");
             if (!document.fullscreenElement) {
-                fullscreenBtn.style.display = "inline-block";
+                document.getElementById("fullscreenBtn").style.display = "inline-block";
             }
         });
 
@@ -1288,10 +1311,12 @@
     <button id="fullscreenBtn" onclick="goFullscreen()">Go Fullscreen</button>
 
     <p>Select the correct definition for: <strong id="word"></strong></p>
-    <br>
-    <button class="choice-btn"></button>
-    <button class="choice-btn"></button>
-    <button class="choice-btn"></button>
+    <div id="gameContainer">
+        <button class="choice-btn"></button>
+        <button class="choice-btn"></button>
+        <button class="choice-btn"></button>
+    </div>
+
     <p id="result"></p>
     <p id="score">Score: 0 / 0</p>
     <button id="nextBtn" onclick="nextWord()">Next Word</button>
