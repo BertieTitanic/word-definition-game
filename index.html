@@ -1252,6 +1252,15 @@ function goFullscreen() {
     document.getElementById("modeSwitchContainer").style.fontSize = "1.5em";
 }
 
+// Detect fullscreen exit and show the button again
+document.addEventListener("fullscreenchange", () => {
+    let fullscreenBtn = document.getElementById("fullscreenBtn");
+    if (!document.fullscreenElement) {
+        fullscreenBtn.style.display = "inline-block"; // Show the button again
+    }
+});
+
+
 
         window.speechSynthesis.onvoiceschanged = () => {
             pronounceWord();
