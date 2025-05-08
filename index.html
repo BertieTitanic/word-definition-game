@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Word Definition Game</title>
     <style>
         body {
@@ -33,7 +34,7 @@
             border: 2px solid darkred;
         }
 
-        #nextBtn, #fullscreenBtn {
+        #nextBtn {
             font-size: 1.5em;
             padding: 15px;
             width: 80%;
@@ -43,11 +44,15 @@
 
         /* Ensure elements remain visible */
         #word, .choice-btn {
-            visibility: visible !important;
-            display: block !important;
+            visibility: visible;
+            display: block;
         }
     </style>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            startGame();
+        });
+
         const words = {
             "Wretch": {definition:"A miserable or unfortunate person",difficulty:"hard"},
             "Wither": {definition:"To dry up or fade away",difficulty:"hard"},
@@ -74,14 +79,14 @@
 
             correctAnswers = 0;
             totalAttempts = 0;
-            document.getElementById("score").innerHTML = `Score: ${correctAnswers} / ${totalAttempts}`;
+            document.getElementById("score").innerText = `Score: ${correctAnswers} / ${totalAttempts}`;
 
             startGame();
         }
 
         function startGame() {
             document.getElementById("nextBtn").style.display = "none";
-            document.getElementById("result").innerHTML = "";
+            document.getElementById("result").innerText = "";
             correctSelected = false;
 
             const filteredWords = Object.keys(words).filter(word => words[word].difficulty === gameMode);
@@ -108,11 +113,11 @@
 
             const choices = [correctDefinition, ...incorrectDefs].sort(() => Math.random() - 0.5);
 
-            document.getElementById("word").innerHTML = selectedWord;
+            document.getElementById("word").innerText = selectedWord;
 
             const buttons = document.querySelectorAll(".choice-btn");
             buttons.forEach((button, index) => {
-                button.innerHTML = choices[index];
+                button.innerText = choices[index];
                 button.setAttribute("data-correct", choices[index] === correctDefinition);
                 button.classList.remove("correct", "incorrect");
                 button.style.display = "block";
@@ -140,12 +145,12 @@
                 correctAnswers++;
             }
             totalAttempts++;
-            document.getElementById("score").innerHTML = `Score: ${correctAnswers} / ${totalAttempts}`;
+            document.getElementById("score").innerText = `Score: ${correctAnswers} / ${totalAttempts}`;
             startGame();
         }
     </script>
 </head>
-<body onload="startGame()">
+<body>
     <h1>Word Definition Game</h1>
 
     <div id="modeSwitchContainer">
